@@ -1,0 +1,184 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Private farmer account profile containing PII strictly isolated to the signed-in owner.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Farmer display name",
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified Google account email",
+          "maxLength": 200
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Profile avatar URL",
+          "maxLength": 500
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "enum": ["kn-village", "kn-en", "en"],
+          "maxLength": 20
+        },
+        "preferredFarmingMode": {
+          "type": "string",
+          "enum": ["both", "organic", "chemical"],
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "preferredLanguage", "preferredFarmingMode", "createdAt", "updatedAt"]
+    },
+    "ChatThreadDoc": {
+      "title": "Chat Thread",
+      "description": "Synced AI farming conversation thread owned by a farmer.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sector": {
+          "type": "string",
+          "enum": ["all", "row-crops", "horticulture", "greenhouse", "livestock", "aquaculture"],
+          "maxLength": 32
+        },
+        "language": {
+          "type": "string",
+          "enum": ["kn-village", "kn-en", "en"],
+          "maxLength": 20
+        },
+        "farmingMode": {
+          "type": "string",
+          "enum": ["both", "organic", "chemical"],
+          "maxLength": 20
+        },
+        "messages": {
+          "type": "array",
+          "description": "Bounded list of up to 50 chat messages"
+        },
+        "updatedAtClient": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "ownerId", "title", "sector", "language", "farmingMode", "messages", "updatedAtClient", "createdAt", "updatedAt"]
+    },
+    "KrishiCropDoc": {
+      "title": "Krishi Crop Tracker",
+      "description": "Tracked farm crop with daily live camera & photo scan reports owned by a farmer.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "cropName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "sowingDate": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 20
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "district": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "taluk": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["sowing", "growing", "flowering", "cutting-ready", "sent-to-market"],
+          "maxLength": 32
+        },
+        "logs": {
+          "type": "array",
+          "description": "Bounded list of up to 30 daily crop scan entries"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "ownerId", "cropName", "sowingDate", "state", "district", "taluk", "stage", "logs", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user account profile and preferences. Strictly owner-only."
+    },
+    "/users/{userId}/threads/{threadId}": {
+      "schema": { "$ref": "#/entities/ChatThreadDoc" },
+      "description": "Private AI chat threads belonging to the authenticated user."
+    },
+    "/users/{userId}/crops/{cropId}": {
+      "schema": { "$ref": "#/entities/KrishiCropDoc" },
+      "description": "Private Krishi Care crop records and daily photo scan timelines belonging to the authenticated user."
+    }
+  }
+}

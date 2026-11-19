@@ -1,0 +1,6 @@
+{
+  "name": "Agron",
+  "description": "Fast Kannada village-language & English agricultural AI assistant with voice chat, Krishi Care daily crop calendar, live weather, real APMC market prices, and farming diagrams.",
+  "requestFramePermissions": ["microphone", "camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

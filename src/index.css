@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Plus Jakarta Sans", "Noto Sans Kannada", system-ui, sans-serif;
+  --font-sans: "DM Sans", "Noto Sans Kannada", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #141A16;
+    background-color: #F6F7F5;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Clean custom scrollbars for chat and telemetry panes */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 26, 22, 0.14);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 26, 22, 0.28);
+}
+
+/* Markdown prose inside chat messages */
+.agron-prose {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: #1A221D;
+}
+
+.agron-prose p + p {
+  margin-top: 0.75rem;
+}
+
+.agron-prose h1,
+.agron-prose h2,
+.agron-prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #111814;
+  margin-top: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+.agron-prose h2 {
+  font-size: 1.05rem;
+}
+
+.agron-prose h3 {
+  font-size: 0.95rem;
+}
+
+.agron-prose ul,
+.agron-prose ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.agron-prose ul {
+  list-style-type: disc;
+}
+
+.agron-prose ol {
+  list-style-type: decimal;
+}
+
+.agron-prose li + li {
+  margin-top: 0.25rem;
+}
+
+.agron-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  background-color: #ECEEEB;
+  color: #14532D;
+  padding: 0.125rem 0.35rem;
+  border-radius: 4px;
+}
+
+.agron-prose pre {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.875rem 1rem;
+  background-color: #131A16;
+  color: #E7ECE8;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+.agron-prose pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.agron-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.agron-prose th,
+.agron-prose td {
+  border: 1px solid #E2E5E0;
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+}
+
+.agron-prose th {
+  background-color: #F2F4F0;
+  font-weight: 600;
+  color: #1A221D;
+}
+
+.agron-prose strong {
+  font-weight: 600;
+  color: #111814;
+}
